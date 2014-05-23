@@ -29,7 +29,7 @@ public class servletBlog extends HttpServlet {
 			b.setId(Double.parseDouble(req.getParameter("id")));
 			b.setMeta(req.getParameter("meta"));
 			b.setTitulo(req.getParameter("titulo"));
-			DaoBlog d = new DaoBlog();
+			DaoBlog d = new DaoBlogImpl();
 			boolean ver = d.inserir(b);
 			if(ver){
 				PrintWriter out = res.getWriter();

@@ -13,7 +13,7 @@ public class DaoComentario  {
 
 
 	public boolean inserir() {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "INSERT INTO comentario (id_comentario, datacriacao_comentario, conteudo_comentario, id_post, id_usuario)"
 				+" VALUES ( 1, 'data' , 'conteudo', 1, 1)";
 		try {
@@ -27,7 +27,7 @@ public class DaoComentario  {
 	}
 
 	public boolean alterar() {	
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "UPDATE comentario SET datacriacao_comentario = 'data', conteudo_comentario = 'conteudo',"
 				+" where id_comentario = 1";
 		try{
@@ -43,7 +43,7 @@ public class DaoComentario  {
 
 
 	public boolean delete() {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "DELETE FROM comentario WHERE id_comentario = '123'";
 		try {
 			Statement stm = con.createStatement();
@@ -58,7 +58,7 @@ public class DaoComentario  {
 
 	public Comentario selecionar() {
 
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "SELECT id_comentario, datacriacao_comentario, conteudo_comentario, id_post, id_usuario"
 					+" FROM comentario WHERE id_comentario = '1' ";
 		Comentario comentario = new Comentario();

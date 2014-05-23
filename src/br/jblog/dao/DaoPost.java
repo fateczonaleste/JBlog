@@ -13,7 +13,7 @@ import br.jblog.model.Post;
 public class DaoPost {
 	
 	public boolean inserir() {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "INSERT INTO comentario (id_post, titulo_post, datacriacao_post, conteudo_post, idCategoria, id_usuario, id_usuario)"
 				+" VALUES ( 1, 'titulo', 'data' , 'conteudo', 1, 1  , 1)";
 		try {
@@ -27,7 +27,7 @@ public class DaoPost {
 	}
 
 	public boolean alterar() {	
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "UPDATE comentario SET titulo_post = 'titulo', datacriacao_post = 'date', conteudo_post = 'conteudo', idCategoria = 1 "
 				+" where id_post = 1";
 		try{
@@ -43,7 +43,7 @@ public class DaoPost {
 
 
 	public boolean delete() {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "DELETE FROM post WHERE id_post = '123'";
 		try {
 			Statement stm = con.createStatement();
@@ -57,7 +57,7 @@ public class DaoPost {
 
 
 	public Post selecionar() {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "SELECT id_post, titulo_post, datacriacao_post, conteudo_post, idCategoria, id_usuario, id_usuario"
 					+" FROM post WHERE id_post = '1' ";
 		Post p = new Post();
@@ -79,7 +79,7 @@ public class DaoPost {
 	}
 	
 	public List<Post> selecionarPosts()  {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "SELECT id_post, titulo_post, datacriacao_post, conteudo_post, idCategoria, id_usuario, id_usuario "+
 		" FROM Post ORDER BY datacriacao_post ";
 		

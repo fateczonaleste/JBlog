@@ -15,19 +15,19 @@ public class Post {
 	public Post() {
 		comentarios = new ArrayList<Comentario>();
 	}
-	
-	public void addComentario(Comentario c){
+
+	public void addComentario(Comentario c) {
 		this.comentarios.add(c);
-	}	
-	
-	public void rmComentario(int comentarioid){
-		for (Comentario c : comentarios) {
-			if (c.){
-				
-			}
-		}
-		this.comentarios.remove(comentarioid);
 	}
+
+//	public void rmComentario(int comentarioid){
+//		for (Comentario c : comentarios) {
+//			if (c.){
+//				
+//			}
+//		}
+//		this.comentarios.remove(comentarioid);
+//	}
 
 	public double getId() {
 		return id;

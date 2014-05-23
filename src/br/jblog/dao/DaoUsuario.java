@@ -12,7 +12,7 @@ import br.jblog.model.Usuario;
 
 public class DaoUsuario {
 	public boolean alterar(Usuario u) {	
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "UPDATE usuario SET nome_usuario = ? , login_usuario = ? , senha_usuario = ? , bio_usuario = ? "+
 					"where id_usuario = ? ";
 		try{
@@ -33,7 +33,7 @@ public class DaoUsuario {
 	
 	
 	public boolean deletar(Double codigo) {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "DELETE FROM usuario 	WHERE id_usuario = ? ";
 		try {
 			PreparedStatement stm = con.prepareStatement(sql);
@@ -48,7 +48,7 @@ public class DaoUsuario {
 	
 	
 	public boolean inserir(Usuario u) {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = " INSERT INTO usuario (id_usuario, nome_usuario, login_usuario, senha_usuario, bio_usuario) "+
 				" VALUES ( ? , ? , ? , ? , ? ) ";
 		try {
@@ -68,7 +68,7 @@ public class DaoUsuario {
 	
 	
 	public Usuario selecionar(Double codigo) {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "SELECT id_usuario, nome_usuario, login_usuario, senha_usuario, bio_usuario FROM usuario"+
 					" WHERE id_usuario = ? ";
 		Usuario usu = new Usuario();
@@ -91,7 +91,7 @@ public class DaoUsuario {
 	}
 	
 	public List<Usuario> selecionarBlogs()  {
-		Connection con = Conexao.getConnection();
+		Connection con = ConnectionFactory.getConnection();
 		String sql = "SELECT id_usuario, bio_usuario, login_usuario, nome_usuario, senha_usuario"+
 					" FROM usuario ORDER BY nome_usuario ";
 		
