@@ -13,13 +13,17 @@
 
 	<p:dataTable var="blo" value="#{blogMB.consultarTodos()}">
 		<p:column headerText="Codigo">
-			<p:commandLink  value="#{blo.id}"	action="#{blogMB.blogSession()}"> </p:commandLink>
+			<p:commandLink value="#{blo.id}" action="#{blogMB.blogSession()}">
+			</p:commandLink>
 		</p:column>
 		<p:column headerText="Titulo">
-			<p:commandLink  value="#{blo.titulo}"	action="#{blogMB.blogSession()}"> </p:commandLink>
+			<p:commandLink value="#{blo.titulo}" action="#{blogMB.blogSession()}">
+			</p:commandLink>
 		</p:column>
 		<p:column headerText="Descrição">
-			<p:commandLink  value="#{blo.descricao}"	action="#{blogMB.blogSession()}" > </p:commandLink>
+			<p:commandLink value="#{blo.descricao}"
+				action="#{blogMB.blogSession()}">
+			</p:commandLink>
 		</p:column>
 	</p:dataTable>
 </h:body>
