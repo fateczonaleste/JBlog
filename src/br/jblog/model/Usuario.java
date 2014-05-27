@@ -47,5 +47,11 @@ public class Usuario {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
+	
+	public Usuario logar(Usuario usuario){
+		
+		return usuario;
+		
+	}
 
 }

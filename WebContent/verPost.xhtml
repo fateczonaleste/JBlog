@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>JBlog</title>
+</h:head>
+<h:body>
+	<h1>JBlog-O seu Blog</h1>
+	<h:form>
+		<p:panel>
+			<h2>
+				<h:outputText value="Titulo  :"></h:outputText>
+			</h2>
+			<p></p>
+			<h:outputText value="#{postMB.post.titulo}"></h:outputText>
+			<p></p>
+			<h3>
+				<h:outputText value="Conteúdo :   "></h:outputText>
+			</h3>
+			<p></p>
+			<h:outputText value="#{postMB.post.conteudo}"></h:outputText>
+			<p></p>
+		</p:panel>
+		<br></br>
+		<h2>
+			<h:outputText value="Comentarios:"></h:outputText>
+		</h2>
+
+		<p:panel>
+			<h:panelGroup>
+				<h:outputText value="Seu nome:"></h:outputText>
+				<h:inputText value="#{comentarioMB.comentario.nome}" />
+				<br></br>
+				<h:outputText value="Seu email:"></h:outputText>
+				<h:inputText value="#{comentarioMB.comentario.email}" />
+				<br></br>
+				<h:outputText value="Comentário:"></h:outputText>
+				<h:inputTextarea value="#{comentarioMB.comentario.conteudo}" />
+				<br></br>
+				<h:commandButton value="Adicionar"
+					action="#{comentarioMB.adicionar()}"></h:commandButton>
+			</h:panelGroup>
+		</p:panel>
+		<p></p>
+
+		<p:dataList var="c" value="#{comentarioMB.consultarTodos()}">
+			<h:outputText value="Comentárista:"></h:outputText>
+			<h:outputText value="#{c.nome}"></h:outputText>
+			<br></br>
+			<h:outputText value="Data Criação: "></h:outputText>
+			<h:outputText value="#{c.dataCriacao}"></h:outputText>
+			<br></br>
+			<h:outputText value="Email:"></h:outputText>
+			<h:outputText value="#{c.email}"></h:outputText>
+			<br></br>
+			<h:outputText value="Conteudo:"></h:outputText>
+			<h:outputText value="#{c.conteudo}"></h:outputText>
+			<p></p>
+		</p:dataList>
+
+	</h:form>
+</h:body>
+</html>

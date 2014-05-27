@@ -16,12 +16,14 @@ public class DAOBlogImpl implements DaoBlog {
 	@Override
 	public int add(Blog b) {
 		Connection con = ConnectionFactory.getConnection();
-		String sql = "PROC_BLOG_INSERT ( TITULO_B=? , DESCRICAO_B=? )";
+		String sql = "INSERT INTO blog (id_blog, titulo_blog, descricao_blog) VALUES ( sqblog.nextval, ? , ?  )";
 		try {
 			PreparedStatement stm = con.prepareStatement(sql);
+			//stm.setDouble(1, b.getId());
 			stm.setString(1, b.getTitulo());
 			stm.setString(2, b.getDescricao());
 			stm.execute();
+			
 			return 1;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -32,12 +34,12 @@ public class DAOBlogImpl implements DaoBlog {
 	@Override
 	public boolean update(Blog b) {
 		Connection con = ConnectionFactory.getConnection();
-		String sql = "UPDATE blog SET titulo_blog = ? , descricao_blog = ? , meta = ? where id_blog = ?";
+		String sql = "UPDATE blog SET titulo_blog = ? , descricao_blog = ?  where id_blog = ?";
 		try {
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setString(1, b.getTitulo());
 			stm.setString(2, b.getDescricao());
-			stm.setDouble(4, b.getId());
+			stm.setDouble(3, b.getId());
 			stm.execute();
 			return true;
 		} catch (SQLException e) {
@@ -50,8 +52,7 @@ public class DAOBlogImpl implements DaoBlog {
 	@Override
 	public List<Blog> listAll() {
 		Connection con = ConnectionFactory.getConnection();
-		String sql = "SELECT id_blog, titulo_blog, descricao_blog, meta FROM blog ORDER BY titulo ";
-
+		String sql = "SELECT id_blog, titulo_blog, descricao_blog FROM blog ";
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
@@ -59,9 +60,9 @@ public class DAOBlogImpl implements DaoBlog {
 
 			while (rs.next()) {
 				Blog b = new Blog();
-				b.setDescricao(rs.getString("descricao"));
-				b.setId(rs.getDouble("id"));
-				b.setTitulo(rs.getString("titulo"));
+				b.setDescricao(rs.getString("descricao_blog"));
+				b.setId(rs.getDouble("id_blog"));
+				b.setTitulo(rs.getString("titulo_blog"));
 				lista.add(b);
 			}
 			return lista;
@@ -74,7 +75,7 @@ public class DAOBlogImpl implements DaoBlog {
 	@Override
 	public Blog getById(double id) {
 		Connection con = ConnectionFactory.getConnection();
-		String sql = "SELECT id_blog, titulo_blog, descricao_blog, meta FROM blog WHERE id_blog = ? ";
+		String sql = "SELECT id_blog, titulo_blog, descricao_blog FROM blog WHERE id_blog = ? ";
 		Blog blog = null;
 		try {
 			blog = new Blog();

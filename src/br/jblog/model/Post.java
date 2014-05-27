@@ -11,9 +11,30 @@ public class Post {
 	private String conteudo;
 	private Date dataCriacao;
 	private List<Comentario> comentarios;
+	private Usuario usuario;
 
 	public Post() {
 		comentarios = new ArrayList<Comentario>();
+		usuario = new Usuario();
+		usuario.setId(1);
+		this.dataCriacao = new Date();
+	}
+
+	
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public void addComentario(Comentario c) {
@@ -44,7 +65,7 @@ public class Post {
 		this.conteudo = conteudo;
 	}
 
-	public Date getDataCriacao() {
+	public java.util.Date getDataCriacao() {
 		return dataCriacao;
 	}
 

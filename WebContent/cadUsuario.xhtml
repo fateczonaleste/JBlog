@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    >
+    <h:head>
+        <title>JBlog</title>
+    </h:head>
+    <h:body>
+     <h:form>
+     	<h:panelGroup>
+     		<h:outputText value ="Codigo Usuario:"></h:outputText><h:inputText value="#{usuarioMB.usuario.id}"  /><br></br>
+       		<h:outputText value ="Nome Usuário:"></h:outputText><h:inputText value="#{usuarioMB.usuario.nome}"  /><br></br>
+       		<h:outputText value ="Login Usuario:"></h:outputText><h:inputText value="#{usuarioMB.usuario.login}"  /><br></br>
+       		<h:outputText value ="Senha:"></h:outputText><h:inputText value="#{usuarioMB.usuario.senha}"  /><br></br>
+       		<h:outputText value ="Bio:"></h:outputText><h:inputText value="#{usuarioMB.usuario.bio}"  /><br></br>
+       		<h:commandButton value="Adicionar" action="#{usuarioMB.adicionar()}"></h:commandButton>
+       		<h:commandButton value="Alterar"  action="#{usuarioMB.alterar()}"></h:commandButton>
+       		<h:commandButton value="Deletar" action="#{usuarioMB.deletar()}"></h:commandButton>
+       		<h:commandButton value="Buscar"  action="#{usuarioMB.selecionar()}" ></h:commandButton>
+  	   		<h:commandButton value="Buscar Todos"></h:commandButton>
+  	   	</h:panelGroup>
+  	   </h:form>
+    </h:body>
+</html>

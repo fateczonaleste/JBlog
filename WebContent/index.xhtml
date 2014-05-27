@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>JBlog</title>
+</h:head>
+<h:body>
+	<h1>JBlog-O seu Blog</h1>
+
+	<p:dataTable var="blo" value="#{blogMB.consultarTodos()}">
+		<p:column headerText="Codigo">
+			<p:commandLink  value="#{blo.id}"	action="#{blogMB.blogSession()}"> </p:commandLink>
+		</p:column>
+		<p:column headerText="Titulo">
+			<p:commandLink  value="#{blo.titulo}"	action="#{blogMB.blogSession()}"> </p:commandLink>
+		</p:column>
+		<p:column headerText="Descrição">
+			<p:commandLink  value="#{blo.descricao}"	action="#{blogMB.blogSession()}" > </p:commandLink>
+		</p:column>
+	</p:dataTable>
+</h:body>
+</html>
+

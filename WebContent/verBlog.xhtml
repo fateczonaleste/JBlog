@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>JBlog</title>
+</h:head>
+<h:body>
+	<h1>JBlog-O seu Blog</h1>
+	<h:form>
+		<p:panel>
+			<h2>
+				<h:outputText value="Titulo  :"></h:outputText>
+			</h2>
+			<p></p>
+			<h:outputText value="#{blogMB.blog.titulo}"></h:outputText>
+			<p></p>
+			<h3>
+				<h:outputText value="Descrição :   "></h:outputText>
+			</h3>
+			<p></p>
+			<h:outputText value="#{blogMB.blog.descricao}"></h:outputText>
+			<p></p>
+		</p:panel>
+		<br></br>
+		
+			<h2>
+				<h:outputText value="Posts:"></h:outputText>
+			</h2>
+
+		<p:dataTable var="p" value="#{postMB.consultarTodos()}">
+		<p:column headerText="Titulo"  >
+			<p:commandLink  value="#{p.titulo}"	> </p:commandLink>
+		</p:column>
+		<p:column headerText="Contéudo">
+			<p:commandLink  value="#{p.conteudo}"	> </p:commandLink>
+		</p:column>
+		<p:column headerText="Criação">
+			<p:commandLink  value="#{p.dataCriacao}"	> </p:commandLink>
+		</p:column>
+	</p:dataTable>
+	
+	</h:form>
+</h:body>
+</html>
