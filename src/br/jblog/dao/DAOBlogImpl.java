@@ -16,15 +16,12 @@ public class DAOBlogImpl implements DaoBlog {
 	@Override
 	public int add(Blog b) {
 		Connection con = ConnectionFactory.getConnection();
-		String sql = "INSERT INTO blog (id_blog, titulo_blog, descricao_blog, meta) VALUES ( ?, ? , ? , ? )";
+		String sql = "PROC_BLOG_INSERT ( TITULO_B=? , DESCRICAO_B=? )";
 		try {
 			PreparedStatement stm = con.prepareStatement(sql);
-			stm.setDouble(1, b.getId());
-			stm.setString(2, b.getTitulo());
-			stm.setString(3, b.getDescricao());
-			stm.setString(4, b.getMeta());
+			stm.setString(1, b.getTitulo());
+			stm.setString(2, b.getDescricao());
 			stm.execute();
-			// FIXME: Trocar o 1 pelo id do registro inserido
 			return 1;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -40,7 +37,6 @@ public class DAOBlogImpl implements DaoBlog {
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setString(1, b.getTitulo());
 			stm.setString(2, b.getDescricao());
-			stm.setString(3, b.getMeta());
 			stm.setDouble(4, b.getId());
 			stm.execute();
 			return true;
@@ -65,7 +61,6 @@ public class DAOBlogImpl implements DaoBlog {
 				Blog b = new Blog();
 				b.setDescricao(rs.getString("descricao"));
 				b.setId(rs.getDouble("id"));
-				b.setMeta(rs.getString("meta"));
 				b.setTitulo(rs.getString("titulo"));
 				lista.add(b);
 			}
@@ -89,7 +84,6 @@ public class DAOBlogImpl implements DaoBlog {
 			while (rs.next()) {
 				blog.setDescricao(rs.getString("descricao_blog"));
 				blog.setId(rs.getDouble("id_blog"));
-				blog.setMeta(rs.getString("meta"));
 				blog.setTitulo(rs.getString("titulo_blog"));
 			}
 			return blog;

@@ -20,15 +20,6 @@ public class Post {
 		this.comentarios.add(c);
 	}
 
-//	public void rmComentario(int comentarioid){
-//		for (Comentario c : comentarios) {
-//			if (c.){
-//				
-//			}
-//		}
-//		this.comentarios.remove(comentarioid);
-//	}
-
 	public double getId() {
 		return id;
 	}
