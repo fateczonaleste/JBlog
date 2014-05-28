@@ -1,26 +1,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"  
-    xmlns:f="http://java.sun.com/jsf/core"  
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://primefaces.org/ui"
-    >
-    <h:head>
-        <title>JBlog</title>
-    </h:head>
-    <h:body>
-     <h:form>
-     	<h:panelGroup>
-     		<h:outputText value ="Codigo Blog:"></h:outputText><h:inputText value="#{blogMB.blog.id}"  /><br></br>
-       		<h:outputText value ="Titulo Blog:"></h:outputText><h:inputText value="#{blogMB.blog.titulo}"  /><br></br>
-       		<h:outputText value ="Descrição Blog:"></h:outputText><h:inputTextarea value="#{blogMB.blog.descricao}"  /><br></br>
-       		<h:commandButton value="Adicionar" action="#{blogMB.adicionar()}"></h:commandButton>
-       		<h:commandButton value="Alterar"  action="#{blogMB.alterar()}"></h:commandButton>
-       		<h:commandButton value="Deletar" action="#{blogMB.deletar()}"></h:commandButton>
-       		<h:commandButton value="Buscar"  action="#{blogMB.selecionar()}" ></h:commandButton>
-  	   		<h:commandButton value="Buscar Todos"></h:commandButton>
-  	   	</h:panelGroup>
-  	   </h:form>
-    </h:body>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>JBlog - Blogs</title>
+</h:head>
+<h:body>
+	<p:growl id="growl" showDetail="true" sticky="true" />
+	<h:form>
+		<p:panel header="Blogs" footer="Total">
+			<h2>Título</h2>
+			<p:inputText value="#{blogMB.blog.titulo}" />
+			<h2>Descrição</h2>
+			<p:inputTextarea value="#{blogMB.blog.descricao}" rows="2" cols="90"
+				counter="contador" maxlength="180"
+				counterTemplate="{0} caracteres restantes." autoResize="false" /><br />
+			<h:outputText id="contador" />
+			<br />
+			<p:commandButton value="Adicionar" action="#{blogMB.adicionar()}"
+				id="withIcon" icon="ui-icon-plus" />
+			<p:commandButton value="Alterar" action="#{blogMB.alterar()}" />
+			<p:commandButton value="Deletar" action="#{blogMB.deletar()}" />
+			<p:commandButton value="Buscar" action="#{blogMB.selecionar()}" />
+			<p:commandButton value="Buscar Todos" />
+		</p:panel>
+	</h:form>
+</h:body>
 </html>
