@@ -10,40 +10,46 @@
 </h:head>
 <h:body>
 	<h1>JBlog-O seu Blog</h1>
+	
+	
+	<p:tabMenu activeIndex="2">
+		<p:menuitem value="Inicio" outcome="index">
+		</p:menuitem>
+		<p:menuitem value="Blog" outcome="verBlog">
+		</p:menuitem>
+		<p:menuitem value="Posts" outcome="verPost">
+		</p:menuitem>
+		<p:menuitem value="Cadastra Post" outcome="cadPost">
+		</p:menuitem>
+		<p:menuitem value="Cadastra Blog" outcome="cadBlog">
+		</p:menuitem>
+		<p:menuitem value="Cadastra Usuário" outcome="cadUsuario">
+		</p:menuitem>
+	</p:tabMenu>
+	<h2>Post</h2>
 	<h:form>
 		<p:panel>
-			<h2>
-				<h:outputText value="Titulo  :"></h:outputText>
-			</h2>
-			<p></p>
+			<h2> Titulo:</h2>
 			<h:outputText value="#{postMB.post.titulo}"></h:outputText>
-			<p></p>
-			<h3>
-				<h:outputText value="Conteúdo :   "></h:outputText>
-			</h3>
-			<p></p>
+			<h2>Conteúdo:</h2>
 			<h:outputText value="#{postMB.post.conteudo}"></h:outputText>
 			<p></p>
 		</p:panel>
 		<br></br>
-		<h2>
-			<h:outputText value="Comentarios:"></h:outputText>
-		</h2>
-
+		<h2>Comentarios:</h2>
+		<p></p>
 		<p:panel>
-			<h:panelGroup>
-				<h:outputText value="Seu nome:"></h:outputText>
-				<h:inputText value="#{comentarioMB.comentario.nome}" />
-				<br></br>
-				<h:outputText value="Seu email:"></h:outputText>
-				<h:inputText value="#{comentarioMB.comentario.email}" />
-				<br></br>
-				<h:outputText value="Comentário:"></h:outputText>
-				<h:inputTextarea value="#{comentarioMB.comentario.conteudo}" />
-				<br></br>
-				<h:commandButton value="Adicionar"
-					action="#{comentarioMB.adicionar()}"></h:commandButton>
-			</h:panelGroup>
+				<h2>Seu nome:</h2>
+				<p:inputText value="#{comentarioMB.comentario.nome}" />
+				<h2>Seu email:</h2>
+				<p:inputText value="#{comentarioMB.comentario.email}" />
+				<h2>Comentario:</h2>
+				<p:inputTextarea value="#{comentarioMB.comentario.conteudo}" rows="2" cols="90"
+				counter="contador" maxlength="180"
+				counterTemplate="{0} caracteres restantes." autoResize="false" />
+				<br/>
+				<h:outputText id="contador" /><br/>
+				<p:commandButton value="Adicionar" action="#{comentarioMB.adicionar()}"></p:commandButton>
 		</p:panel>
 		<p></p>
 

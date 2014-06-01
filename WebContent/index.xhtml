@@ -11,11 +11,22 @@
 <h:body>
 	<h1>JBlog-O seu Blog</h1>
 
+	<p:tabMenu activeIndex="0">
+		<p:menuitem value="Inicio" outcome="index">
+		</p:menuitem>
+		<p:menuitem value="Blog" outcome="verBlog">
+		</p:menuitem>
+		<p:menuitem value="Posts" outcome="verPost">
+		</p:menuitem>
+		<p:menuitem value="Cadastra Post" outcome="cadPost">
+		</p:menuitem>
+		<p:menuitem value="Cadastra Blog" outcome="cadBlog">
+		</p:menuitem>
+			<p:menuitem value="Cadastra Usuário" outcome="cadUsuario">
+		</p:menuitem>
+	</p:tabMenu>
+	<h2>Veja o Jblog</h2>
 	<p:dataTable var="blo" value="#{blogMB.consultarTodos()}">
-		<p:column headerText="Codigo">
-			<p:commandLink value="#{blo.id}" action="#{blogMB.blogSession()}">
-			</p:commandLink>
-		</p:column>
 		<p:column headerText="Titulo">
 			<p:commandLink value="#{blo.titulo}" action="#{blogMB.blogSession()}">
 			</p:commandLink>
@@ -26,6 +37,8 @@
 			</p:commandLink>
 		</p:column>
 	</p:dataTable>
+
 </h:body>
+
 </html>
 
