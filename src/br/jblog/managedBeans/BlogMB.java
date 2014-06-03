@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import br.jblog.dao.DAOBlogImpl;
 import br.jblog.dao.DAOException;
-import br.jblog.dao.DaoBlog;
+import br.jblog.dao.DAOBlog;
 import br.jblog.model.Blog;
 
 @ManagedBean
@@ -46,7 +46,7 @@ public class BlogMB {
 	}
 
 	public String adicionar() {
-		DaoBlog dao = new DAOBlogImpl();
+		DAOBlog dao = new DAOBlogImpl();
 		try {
 			dao.add(blog);
 		} catch (DAOException e) {
@@ -57,7 +57,7 @@ public class BlogMB {
 	}
 
 	public String deletar() {
-		DaoBlog dao = new DAOBlogImpl();
+		DAOBlog dao = new DAOBlogImpl();
 		try {
 			dao.delete(blog);
 		} catch (DAOException e) {
@@ -67,7 +67,7 @@ public class BlogMB {
 	}
 
 	public String alterar() {
-		DaoBlog dao = new DAOBlogImpl();
+		DAOBlog dao = new DAOBlogImpl();
 		try {
 			dao.update(blog);
 		} catch (DAOException e) {
@@ -77,7 +77,7 @@ public class BlogMB {
 	}
 
 	public String selecionar() {
-		DaoBlog dao = new DAOBlogImpl();
+		DAOBlog dao = new DAOBlogImpl();
 		try {
 
 			blog = dao.getById(blog.getId());
@@ -88,7 +88,7 @@ public class BlogMB {
 	}
 
 	public List<Blog> consultarTodos() {
-		DaoBlog cDao = new DAOBlogImpl();
+		DAOBlog cDao = new DAOBlogImpl();
 		try {
 			blogs = cDao.listAll();
 		} catch (DAOException e) {

@@ -12,7 +12,7 @@ import br.jblog.model.Blog;
 
 // Fonte: http://www.oracle.com/technetwork/java/dataaccessobject-138824.html
 // Oacle Procedures in Java: http://docs.oracle.com/cd/B25329_01/doc/appdev.102/b25108/xedev_jdbc.htm
-public class DAOBlogImpl implements DaoBlog {
+public class DAOBlogImpl implements DAOBlog {
 
 	@Override
 	public int add(Blog b) throws DAOException {

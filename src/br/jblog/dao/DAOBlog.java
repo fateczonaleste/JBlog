@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.jblog.model.Blog;
 
-public interface DaoBlog {
+public interface DAOBlog {
 	
 	public int add(Blog b) throws DAOException;
 	public int update(Blog b) throws DAOException;
