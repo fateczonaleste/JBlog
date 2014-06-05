@@ -5,9 +5,9 @@ import java.util.List;
 import br.jblog.model.Usuario;
 
 public interface DaoUsuario {
-	public int add(Usuario u);
-	public boolean update(Usuario u);
-	public boolean delete(Usuario u);	
-	public List<Usuario> listAll();
-	public Usuario getById(double id);
+	public int add(Usuario u) throws DAOException;
+	public int update(Usuario u) throws DAOException;
+	public int delete(Usuario u) throws DAOException;	
+	public List<Usuario> listAll() throws DAOException;
+	public Usuario getById(double id) throws DAOException;
 }

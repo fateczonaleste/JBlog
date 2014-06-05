@@ -9,47 +9,24 @@
 	<title>JBlog - Blogs</title>
 </h:head>
 <h:body>
-	<h1>JBlog-O seu Blog</h1>
-	<p:tabMenu activeIndex="4">
-		<p:menuitem value="Inicio" outcome="index">
-		</p:menuitem>
-		<p:menuitem value="Blog" outcome="verBlog">
-		</p:menuitem>
-		<p:menuitem value="Posts" outcome="verPost">
-		</p:menuitem>
-		<p:menuitem value="Cadastra Post" outcome="cadPost">
-		</p:menuitem>
-		<p:menuitem value="Cadastra Blog" outcome="cadBlog">
-		</p:menuitem>
-			<p:menuitem value="Cadastra Usuário" outcome="cadUsuario">
-		</p:menuitem>
-	</p:tabMenu>
-	<h2>Altere aqui o blog</h2>
-	<p:growl id="growl" showDetail="true" sticky="true" />
+
 	<h:form>
+		<p:growl id="growl" showDetail="true" sticky="true" />
 		<p:panel header="Blogs" footer="Total">
-			<h2>Título</h2>
-			<p:inputText value="#{blogMB.blog.titulo}" />
-			<h2>Descrição</h2>
-
-
+			<p:outputLabel for="titulo" value="Título:" />
+			<p:inputText id="titulo" value="#{blogMB.blog.titulo}">
+				<f:validateLength minimum="3" maximum="30" />
+			</p:inputText>
+			<p:outputLabel for="titulo"
+				value="Descrição (a ser indexada nos buscadores)" />
 			<p:inputTextarea value="#{blogMB.blog.descricao}" rows="2" cols="90"
 				counter="contador" maxlength="180"
 				counterTemplate="{0} caracteres restantes." autoResize="false" />
 			<br />
-
-
-
 			<h:outputText id="contador" />
-
-
 			<br />
-			<p:commandButton value="Adicionar" action="#{blogMB.adicionar()}"
-				id="withIcon" icon="ui-icon-plus" />
-			<p:commandButton value="Alterar" action="#{blogMB.alterar()}" />
-			<p:commandButton value="Deletar" action="#{blogMB.deletar()}" />
-			<p:commandButton value="Buscar" action="#{blogMB.selecionar()}" />
-			<p:commandButton value="Buscar Todos" />
+			<p:commandButton value="Salvar" action="#{blogMB.salvar()}" />
+			<p:commandButton value="Cancelar" action="#{blogMB.salvar()}" />
 		</p:panel>
 	</h:form>
 </h:body>

@@ -10,75 +10,80 @@ import java.util.List;
 
 import br.jblog.model.Usuario;
 
-public class DaoUsuarioImpl implements DaoUsuario{
-	
+public class DaoUsuarioImpl implements DaoUsuario {
+
 	@Override
-	public boolean update(Usuario u) {	
-		Connection con = ConnectionFactory.getConnection();
-		String sql = "UPDATE usuario SET nome_usuario = ? , login_usuario = ? , senha_usuario = ? , bio_usuario = ? "+
-					"where id_usuario = ? ";
-		try{
-			PreparedStatement stm = con.prepareStatement(sql);
+	public int update(Usuario u) throws DAOException {
+
+		String sql = "BEGIN PROC_USUARIO_UPDATE(?,?,?,?,?); END;";
+
+		try {
+			PreparedStatement stm = ConnectionFactory.getConnection()
+					.prepareStatement(sql);
+
+			stm.setDouble(0, u.getId());
 			stm.setString(1, u.getNome());
 			stm.setString(2, u.getLogin());
 			stm.setString(3, u.getSenha());
 			stm.setString(4, u.getBio());
-			stm.setDouble(5, u.getId());
-			stm.execute();
-			return true;
-		}catch(SQLException e){
-			e.printStackTrace();
-			return false;
-		}
-		
-	}
-	
-	@Override
-	public boolean delete(Usuario u) {
-		Connection con = ConnectionFactory.getConnection();
-		String sql = "DELETE FROM usuario 	WHERE id_usuario = ? ";
-		try {
-			PreparedStatement stm = con.prepareStatement(sql);
-			stm.setDouble(1, u.getId());
-			stm.execute();
-			return true;
+
+			return stm.executeUpdate();
+
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
+			throw new DAOException("Erro ao atualizar Usuario.\n"
+					+ e.getMessage());
 		}
+
 	}
-	
+
 	@Override
-	public int add(Usuario u) {
-		Connection con = ConnectionFactory.getConnection();
-		String sql = " INSERT INTO usuario (id_usuario, nome_usuario, login_usuario, senha_usuario, bio_usuario) "+
-				" VALUES ( squsuario.nextval , ? , ? , ? , ? ) ";
+	public int delete(Usuario u) throws DAOException {
+
+		String sql = "BEGIN PROC_USUARIO_DELETE (?); END;";
+
 		try {
-			PreparedStatement stm = con.prepareStatement(sql);
-			//stm.setDouble(1, u.getId());
-			stm.setString(1, u.getNome());
-			stm.setString(2, u.getLogin());
-			stm.setString(3, u.getSenha());
-			stm.setString(4, u.getBio());
-			stm.execute();
-			return 1;
+			PreparedStatement stm = ConnectionFactory.getConnection()
+					.prepareStatement(sql);
+			stm.setDouble(0, u.getId());
+			return stm.executeUpdate();
+
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return 0;
+			throw new DAOException("Erro ao remover Usuario.\n"
+					+ e.getMessage());
 		}
 	}
-	
+
 	@Override
-	public Usuario getById(double  id) {
-		Connection con = ConnectionFactory.getConnection();
-		String sql = "SELECT id_usuario, nome_usuario, login_usuario, senha_usuario, bio_usuario FROM usuario"+
-					" WHERE id_usuario = ? ";
+	public int add(Usuario u) throws DAOException {
+
+		String sql = "BEGIN PROC_USUARIO_INSERT (?,?,?,?); END;";
+
+		try {
+			PreparedStatement stm = ConnectionFactory.getConnection()
+					.prepareStatement(sql);
+			stm.setString(0, u.getNome());
+			stm.setString(1, u.getLogin());
+			stm.setString(2, u.getSenha());
+			stm.setString(3, u.getBio());
+			return stm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DAOException("Erro ao incluir Usuario.\n"
+					+ e.getMessage());
+		}
+	}
+
+	@Override
+	public Usuario getById(double id) throws DAOException {
+
+		String sql = "SELECT id_usuario, nome_usuario, login_usuario, senha_usuario, bio_usuario FROM usuario"
+				+ " WHERE id_usuario = ? ";
 		Usuario usu = new Usuario();
-		try{
-			PreparedStatement stm = con.prepareStatement(sql);
-			stm.setDouble(1, id );
+		try {
+			PreparedStatement stm = ConnectionFactory.getConnection()
+					.prepareStatement(sql);
+			stm.setDouble(1, id);
 			ResultSet rs = stm.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				usu.setBio(rs.getString("bio_usuario"));
 				usu.setId(rs.getDouble("id_usuario"));
 				usu.setLogin(rs.getString("login_usuario"));
@@ -86,24 +91,24 @@ public class DaoUsuarioImpl implements DaoUsuario{
 				usu.setSenha(rs.getString("senha_usuario"));
 			}
 			return usu;
-		}catch(SQLException e){
-			System.out.print(e.toString());
-			return usu;
+		} catch (SQLException e) {
+			throw new DAOException("Erro ao obter Usuario por Id.\n"
+					+ e.getMessage());
 		}
 	}
-	
+
 	@Override
-	public List<Usuario> listAll()  {
+	public List<Usuario> listAll() throws DAOException {
 		Connection con = ConnectionFactory.getConnection();
-		String sql = "SELECT id_usuario, bio_usuario, login_usuario, nome_usuario, senha_usuario"+
-					" FROM usuario ORDER BY nome_usuario ";
-		
+		String sql = "SELECT id_usuario, bio_usuario, login_usuario, nome_usuario, senha_usuario"
+				+ " FROM usuario ORDER BY nome_usuario ";
+
 		try {
 			Statement stm = con.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
 			List<Usuario> lista = new ArrayList<Usuario>();
-			
-			while(rs.next()){
+
+			while (rs.next()) {
 				Usuario usu = new Usuario();
 				usu.setBio(rs.getString("bio_usuario"));
 				usu.setId(rs.getDouble("id_usuario"));
@@ -114,8 +119,8 @@ public class DaoUsuarioImpl implements DaoUsuario{
 			}
 			return lista;
 		} catch (SQLException e) {
-			List<Usuario> lista = new ArrayList<Usuario>();
-			return lista;
+			throw new DAOException("Erro ao listar todos os Usuarios.\n"
+					+ e.getMessage());
 		}
 	}
 

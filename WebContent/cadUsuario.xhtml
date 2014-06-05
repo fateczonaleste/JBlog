@@ -9,40 +9,41 @@
 	<title>JBlog</title>
 </h:head>
 <h:body>
-	<h1>JBlog-O seu Blog</h1>
-	<p:tabMenu activeIndex="5">
-		<p:menuitem value="Inicio" outcome="index">
-		</p:menuitem>
-		<p:menuitem value="Blog" outcome="verBlog">
-		</p:menuitem>
-		<p:menuitem value="Posts" outcome="verPost">
-		</p:menuitem>
-		<p:menuitem value="Cadastra Post" outcome="cadPost">
-		</p:menuitem>
-		<p:menuitem value="Cadastra Blog" outcome="cadBlog">
-		</p:menuitem>
-		<p:menuitem value="Cadastra Usuário" outcome="cadUsuario">
-		</p:menuitem>
-	</p:tabMenu>
-	<h2>Cadastro de Usuário</h2>
-	<h:form>
-		<h:panelGroup>
-			<h2>Nome de Usuário:</h2>
-			<p:inputText value="#{usuarioMB.usuario.nome}" />
-			<br></br>
-			<h2>Login de usuário:</h2>
-			<p:inputText value="#{usuarioMB.usuario.login}" />
-			<h2>Senha</h2>
-			<p:password value="#{usuarioMB.usuario.senha}" />
-			<h2>Biotipo:</h2>
-			<p:inputText value="#{usuarioMB.usuario.bio}" />
-			<p></p>
-			<p:commandButton value="Adicionar" action="#{usuarioMB.adicionar()}"></p:commandButton>
-			<p:commandButton value="Alterar" action="#{usuarioMB.alterar()}"></p:commandButton>
-			<p:commandButton value="Deletar" action="#{usuarioMB.deletar()}"></p:commandButton>
-			<p:commandButton value="Buscar" action="#{usuarioMB.selecionar()}"></p:commandButton>
-			<p:commandButton value="Buscar Todos"></p:commandButton>
-		</h:panelGroup>
-	</h:form>
+	<p:panel header="Cadastro de Usuário" footer="JBlog - O seu Blog">
+		<h:form>
+			<h:panelGroup>
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" />
+				<p:outputLabel for="login" value="Login:" />
+				<p:inputText id="login" value="#{usuarioMB.usuario.login}" />
+				<p:outputLabel for="senha" value="Senha:" />
+				<p:password id="senha" value="#{usuarioMB.usuario.senha}" />
+				<p:outputLabel for="bio"
+					value="Bio (escreva sobre um pouco de você): " />
+				<p:inputText id="bio" value="#{usuarioMB.usuario.bio}" />
+				<p:commandButton value="Adicionar" action="#{usuarioMB.adicionar()}"></p:commandButton>
+				<p:commandButton value="Alterar" action="#{usuarioMB.alterar()}"></p:commandButton>
+				<p:commandButton value="Deletar" action="#{usuarioMB.deletar()}"></p:commandButton>
+				<p:commandButton value="Buscar" action="#{usuarioMB.selecionar()}"></p:commandButton>
+			</h:panelGroup>
+			<h:panelGroup>
+				<p:dataTable value="#{usuarioMB.usuarios}" var="usuario" rows="10"
+					paginator="true">
+					<p:column sortBy="#{usuario.id}" headerText="Id">
+						<h:outputText value="#{usuario.id}" />
+					</p:column>
+					<p:column sortBy="#{usuario.nome}" headerText="Nome">
+						<h:outputText value="#{usuario.nome}" />
+					</p:column>
+					<p:column sortBy="#{usuario.login}" headerText="Login">
+						<h:outputText value="#{usuario.login}" />
+					</p:column>
+					<p:column headerText="Bio">
+						<h:outputText value="#{usuario.bio}" />
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+		</h:form>
+	</p:panel>
 </h:body>
 </html>

@@ -1,9 +1,8 @@
 package br.jblog.managedBeans;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
@@ -13,17 +12,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.jblog.dao.DAOBlog;
 import br.jblog.dao.DAOBlogImpl;
 import br.jblog.dao.DAOException;
-import br.jblog.dao.DAOBlog;
 import br.jblog.model.Blog;
 
 @ManagedBean
 @ViewScoped
 @RequestScoped
 public class BlogMB {
-	private Blog blog;
-	private List<Blog> blogs;
+	
+	private Blog blog;	
 
 	public BlogMB() {
 		ExternalContext context = FacesContext.getCurrentInstance()
@@ -33,68 +32,27 @@ public class BlogMB {
 		if (blog == null) {
 			blog = new Blog();
 		}
-		blogs = new ArrayList<Blog>();
-
+		
 	}
 
 	public Blog getBlog() {
 		return blog;
 	}
 
-	public List<Blog> getBlogs() {
-		return blogs;
-	}
-
-	public String adicionar() {
+	public String salvar() {
 		DAOBlog dao = new DAOBlogImpl();
-		try {
-			dao.add(blog);
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-
-		return "";
-	}
-
-	public String deletar() {
-		DAOBlog dao = new DAOBlogImpl();
-		try {
-			dao.delete(blog);
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-
-	public String alterar() {
-		DAOBlog dao = new DAOBlogImpl();
+		String mensagem;
 		try {
 			dao.update(blog);
+			mensagem = "Salvo com sucesso.";
 		} catch (DAOException e) {
 			e.printStackTrace();
+			mensagem = e.getMessage();
 		}
-		return "";
-	}
+		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(mensagem));
 
-	public String selecionar() {
-		DAOBlog dao = new DAOBlogImpl();
-		try {
-
-			blog = dao.getById(blog.getId());
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-
-	public List<Blog> consultarTodos() {
-		DAOBlog cDao = new DAOBlogImpl();
-		try {
-			blogs = cDao.listAll();
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-		return blogs;
+		return mensagem;
 	}
 
 	public void blogSession() throws IOException, ServletException {
