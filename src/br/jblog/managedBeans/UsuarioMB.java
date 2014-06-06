@@ -8,10 +8,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletException;
 
 import br.jblog.dao.DAOException;
 import br.jblog.dao.DaoUsuario;
 import br.jblog.dao.DaoUsuarioImpl;
+import br.jblog.model.Blog;
 import br.jblog.model.Usuario;
 
 @ManagedBean
@@ -19,6 +21,7 @@ import br.jblog.model.Usuario;
 public class UsuarioMB {
 	private Usuario usuario;
 	private List<Usuario> usuarios;
+	private Usuario usuarioSelecionado;
 
 	private void mostrarMensagem(String mensagem) {
 		FacesContext.getCurrentInstance().addMessage(null,
@@ -28,8 +31,12 @@ public class UsuarioMB {
 	@SuppressWarnings("unchecked")
 	public UsuarioMB() throws IOException {
 		usuario = new Usuario();
+		
 		usuarios = (List<Usuario>) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("USUARIOS");
+		if(usuarioSelecionado == null){
+			usuarioSelecionado = new Usuario();
+		}
 		if (usuarios == null) {
 			usuarios = new ArrayList<Usuario>();
 		}
@@ -82,7 +89,7 @@ public class UsuarioMB {
 		return "";
 	}
 
-	public String selecionar() {
+	public void selecionar() {
 		String mensagem;
 		try {
 			DaoUsuario dao = new DaoUsuarioImpl();
@@ -92,7 +99,6 @@ public class UsuarioMB {
 			mensagem = e.getMessage();
 		}
 		mostrarMensagem(mensagem);
-		return "";
 	}
 
 	public String consultarTodos() {
@@ -101,8 +107,7 @@ public class UsuarioMB {
 		try {
 			DaoUsuario cDao = new DaoUsuarioImpl();
 			usuarios = cDao.listAll();
-			FacesContext.getCurrentInstance().getExternalContext()
-					.getSessionMap().put("USUARIOS", usuarios);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("USUARIOS", usuarios);
 			System.out.println("1");
 			// mensagem = usuarios.size() + "Usuário(s) encontrado(s)";
 
@@ -111,5 +116,18 @@ public class UsuarioMB {
 		}
 		// mostrarMensagem(mensagem);
 		return "";
+	}
+	
+	public Usuario getUsuarioSelecionado() {
+		System.out.println("GET selec");
+		return usuarioSelecionado;
+		
+	}
+
+	public void setUsuarioSelecionado(Usuario usuarioSelecionado) throws IOException, ServletException {
+		this.usuarioSelecionado = usuarioSelecionado;
+		System.out.println(usuarioSelecionado);
+		usuario = usuarioSelecionado;
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("USUARIO", usuarioSelecionado);
 	}
 }

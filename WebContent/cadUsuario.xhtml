@@ -10,38 +10,63 @@
 </h:head>
 <h:body>
 	<p:panel header="Cadastro de Usuário" footer="JBlog - O seu Blog">
-		<h:form>
+		<h:form >
 			<h:panelGroup>
+				<p:outputLabel for="id" value="Codigo:" />
+				<p:inputText id="id" value="#{usuarioMB.usuario.id}" />
+				<p></p>
 				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" /><p></p>
+				<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" />
+				<p></p>
 				<p:outputLabel for="login" value="Login:" />
-				<p:inputText id="login" value="#{usuarioMB.usuario.login}" /><p></p>
+				<p:inputText id="login" value="#{usuarioMB.usuario.login}" />
+				<p></p>
 				<p:outputLabel for="senha" value="Senha:" />
-				<p:password id="senha" value="#{usuarioMB.usuario.senha}" /><p></p>
+				<p:password id="senha" value="#{usuarioMB.usuario.senha}" />
+				<p></p>
 				<p:outputLabel for="bio"
-					value="Bio (escreva sobre um pouco de você): " /><br></br>
-				<p:inputTextarea id="bio" value="#{usuarioMB.usuario.bio}" scrollHeight="700" rows="6"/><p></p>
+					value="Bio (escreva sobre um pouco de você): " />
+				<br></br>
+				<p:inputTextarea id="bio" value="#{usuarioMB.usuario.bio}"
+					scrollHeight="700" rows="6" />
+				<p></p>
 				<p:commandButton value="Adicionar" action="#{usuarioMB.adicionar()}"></p:commandButton>
 				<p:commandButton value="Alterar" action="#{usuarioMB.alterar()}"></p:commandButton>
 				<p:commandButton value="Deletar" action="#{usuarioMB.deletar()}"></p:commandButton>
 				<p:commandButton value="Buscar" action="#{usuarioMB.selecionar()}"></p:commandButton>
-				<p:commandButton value="Listar" action="#{usuarioMB.consultarTodos()}"></p:commandButton>
+				<p:commandButton value="Listar"
+					action="#{usuarioMB.consultarTodos()}"></p:commandButton>
 			</h:panelGroup>
 			<p></p>
+		</h:form>
+		<h:form>
 			<h:panelGroup>
-				<p:dataTable value="#{usuarioMB.usuarios}" var="usuario" rows="10" 
-				 emptyMessage="Clique em busca para ver todos usuários" paginator="true">
-					<p:column sortBy="#{usuario.id}" headerText="Id">
-						<h:outputText value="#{usuario.id}" />
+				<p:dataTable value="#{usuarioMB.usuarios}" var="usua" rows="10"
+					emptyMessage="Clique em busca para ver todos usuários"
+					paginator="true">
+					<p:column sortBy="#{usua.id}" headerText="Id">
+						<p:commandLink value="#{usua.id}" update="@form" >
+							<f:setPropertyActionListener
+								target="#{usuarioMB.usuarioSelecionado}" value="#{usua}" />
+						</p:commandLink>
 					</p:column>
-					<p:column sortBy="#{usuario.nome}" headerText="Nome">
-						<h:outputText value="#{usuario.nome}" />
+					<p:column sortBy="#{usua.nome}" headerText="Nome">
+						<p:commandLink value="#{usua.nome}" update="@form">
+							<f:setPropertyActionListener
+								target="#{usuarioMB.usuarioSelecionado}" value="#{usua}" />
+						</p:commandLink>
 					</p:column>
-					<p:column sortBy="#{usuario.login}" headerText="Login">
-						<h:outputText value="#{usuario.login}" />
+					<p:column sortBy="#{usua.login}" headerText="Login">
+						<p:commandLink value="#{usua.login}" update="@form">
+							<f:setPropertyActionListener
+								target="#{usuarioMB.usuarioSelecionado}" value="#{usua}" />
+						</p:commandLink>
 					</p:column>
 					<p:column headerText="Bio">
-						<h:outputText value="#{usuario.bio}" />
+						<p:commandLink value="#{usua.bio}" update="@form">
+							<f:setPropertyActionListener
+								target="#{usuarioMB.usuarioSelecionado}" value="#{usua}" />
+						</p:commandLink>
 					</p:column>
 				</p:dataTable>
 			</h:panelGroup>
