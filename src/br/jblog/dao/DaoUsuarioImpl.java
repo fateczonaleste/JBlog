@@ -98,26 +98,28 @@ public class DaoUsuarioImpl implements DaoUsuario {
 	}
 	
 	@Override
-	public Usuario getByNome(String nome) throws DAOException {
+	public List<Usuario> searchByNome(String nome) throws DAOException {
 
 		String sql = "SELECT id_usuario, nome_usuario, login_usuario, senha_usuario, bio_usuario FROM usuario"
-				+ " WHERE nome_usuario LIKE %?% ";
-		Usuario usu = new Usuario();
+				+ " WHERE nome_usuario LIKE ? ";
+		List<Usuario> lista = new ArrayList<Usuario>();
 		try {
 			PreparedStatement stm = ConnectionFactory.getConnection()
 					.prepareStatement(sql);
-			stm.setString(1, nome);
+			stm.setString(1, "%"+nome+"%");
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
+				Usuario usu = new Usuario();
 				usu.setBio(rs.getString("bio_usuario"));
 				usu.setId(rs.getDouble("id_usuario"));
 				usu.setLogin(rs.getString("login_usuario"));
 				usu.setNome(rs.getString("nome_usuario"));
 				usu.setSenha(rs.getString("senha_usuario"));
+				lista.add(usu);
 			}
-			return usu;
+			return lista;
 		} catch (SQLException e) {
-			throw new DAOException("Erro ao obter Usuario por Id.\n"
+			throw new DAOException("Erro ao pesquisa Usuario por Nome.\n"
 					+ e.getMessage());
 		}
 	}

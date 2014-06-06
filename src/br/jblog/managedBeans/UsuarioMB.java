@@ -92,7 +92,7 @@ public class UsuarioMB {
 		String mensagem;
 		try {
 			DaoUsuario dao = new DaoUsuarioImpl();
-			usuario = dao.getByNome(usuario.getNome());
+			usuarios = dao.searchByNome(usuario.getNome());
 			mensagem = "Consulta realizada.";
 		} catch (DAOException e) {
 			mensagem = e.getMessage();

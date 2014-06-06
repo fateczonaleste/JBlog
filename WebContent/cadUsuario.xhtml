@@ -16,18 +16,18 @@
 				<p:outputLabel for="codigo" value="Código:" />				
 				<p:outputLabel id="codigo" value="#{usuarioMB.usuario.id}"></p:outputLabel>
 				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" required="true" />
+				<p:inputText id="nome" value="#{usuarioMB.usuario.nome}"  />
 
 				<p:outputLabel for="login" value="Login:" />
-				<p:inputText id="login" value="#{usuarioMB.usuario.login}" required="true" requiredMessage="Obrigatorio"/>
+				<p:inputText id="login" value="#{usuarioMB.usuario.login}" />
 
 				<p:outputLabel for="senha" value="Senha:" />
-				<p:password id="senha" value="#{usuarioMB.usuario.senha}" required="true"/>
+				<p:password id="senha" value="#{usuarioMB.usuario.senha}" />
 
 				<p:outputLabel for="bio"
 					value="Bio (um pouco de você): " />
 				<p:inputTextarea id="bio" value="#{usuarioMB.usuario.bio}"
-					scrollHeight="700" rows="6" required="true" />
+					scrollHeight="700" rows="6" />
 				<p:commandButton value="Adicionar" action="#{usuarioMB.adicionar()}"
 					update=":listagem"></p:commandButton>
 				<p:commandButton value="Alterar" action="#{usuarioMB.alterar()}"
