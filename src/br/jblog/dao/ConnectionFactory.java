@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
-	
+	/*
 	private static Connection con;
 	
 	public static Connection getConnection() {
@@ -35,7 +35,7 @@ public class ConnectionFactory {
 		return con;
 	}
 	
-	/*
+	*/
 	
 	public static Connection getConnection() {
         try {
@@ -51,6 +51,6 @@ public class ConnectionFactory {
         }
 	 }
 	 
-	*/
+	
 
 }
