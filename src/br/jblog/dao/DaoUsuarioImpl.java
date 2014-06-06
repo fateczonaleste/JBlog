@@ -44,7 +44,7 @@ public class DaoUsuarioImpl implements DaoUsuario {
 		try {
 			PreparedStatement stm = ConnectionFactory.getConnection()
 					.prepareStatement(sql);
-			stm.setDouble(0, u.getId());
+			stm.setDouble(1, u.getId());
 			return stm.executeUpdate();
 
 		} catch (SQLException e) {
@@ -82,6 +82,31 @@ public class DaoUsuarioImpl implements DaoUsuario {
 			PreparedStatement stm = ConnectionFactory.getConnection()
 					.prepareStatement(sql);
 			stm.setDouble(1, id);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				usu.setBio(rs.getString("bio_usuario"));
+				usu.setId(rs.getDouble("id_usuario"));
+				usu.setLogin(rs.getString("login_usuario"));
+				usu.setNome(rs.getString("nome_usuario"));
+				usu.setSenha(rs.getString("senha_usuario"));
+			}
+			return usu;
+		} catch (SQLException e) {
+			throw new DAOException("Erro ao obter Usuario por Id.\n"
+					+ e.getMessage());
+		}
+	}
+	
+	@Override
+	public Usuario getByNome(String nome) throws DAOException {
+
+		String sql = "SELECT id_usuario, nome_usuario, login_usuario, senha_usuario, bio_usuario FROM usuario"
+				+ " WHERE nome_usuario LIKE %?% ";
+		Usuario usu = new Usuario();
+		try {
+			PreparedStatement stm = ConnectionFactory.getConnection()
+					.prepareStatement(sql);
+			stm.setString(1, nome);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
 				usu.setBio(rs.getString("bio_usuario"));

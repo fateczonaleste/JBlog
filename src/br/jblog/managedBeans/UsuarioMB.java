@@ -30,19 +30,21 @@ public class UsuarioMB {
 	@SuppressWarnings("unchecked")
 	public UsuarioMB() throws IOException {
 		usuario = new Usuario();
-		
+		usuarios = new ArrayList<Usuario>();
+		usuarioSelecionado = new Usuario();
+
 		usuarios = (List<Usuario>) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("USUARIOS");
-		if(usuarioSelecionado == null){
-			usuarioSelecionado = new Usuario();
-		}
-		if (usuarios == null) {
-			usuarios = new ArrayList<Usuario>();
-		}
+		
+		consultarTodos();
 	}
 
 	public Usuario getUsuario() {
 		return usuario;
+	}
+	
+	public void setUsuario(Usuario u){
+		usuario = u;
 	}
 
 	public List<Usuario> getUsuarios() {
@@ -62,7 +64,7 @@ public class UsuarioMB {
 		return "";
 	}
 
-	public String deletar() {
+	public void deletar() {
 		String mensagem;
 		try {
 			DaoUsuario dao = new DaoUsuarioImpl();
@@ -71,11 +73,10 @@ public class UsuarioMB {
 		} catch (DAOException e) {
 			mensagem = e.getMessage();
 		}
-		mostrarMensagem(mensagem);
-		return "";
+		mostrarMensagem(mensagem);		
 	}
 
-	public String alterar() {
+	public void alterar() {
 		String mensagem;
 		try {
 			DaoUsuario dao = new DaoUsuarioImpl();
@@ -84,15 +85,14 @@ public class UsuarioMB {
 		} catch (DAOException e) {
 			mensagem = e.getMessage();
 		}
-		mostrarMensagem(mensagem);
-		return "";
+		mostrarMensagem(mensagem);		
 	}
 
 	public void selecionar() {
 		String mensagem;
 		try {
 			DaoUsuario dao = new DaoUsuarioImpl();
-			usuario = dao.getById(usuario.getId());
+			usuario = dao.getByNome(usuario.getNome());
 			mensagem = "Consulta realizada.";
 		} catch (DAOException e) {
 			mensagem = e.getMessage();
@@ -106,26 +106,27 @@ public class UsuarioMB {
 		try {
 			DaoUsuario cDao = new DaoUsuarioImpl();
 			usuarios = cDao.listAll();
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("USUARIOS", usuarios);
-			System.out.println("1");
-			mensagem = usuarios.size() + "Usuario(s) encontrado(s)";
+			FacesContext.getCurrentInstance().getExternalContext()
+					.getSessionMap().put("USUARIOS", usuarios);
+			mensagem = usuarios.size() + " Usuario(s) encontrado(s)";
 
 		} catch (DAOException e) {
 			mensagem = e.getMessage();
 		}
-		mostrarMensagem(mensagem);		
-	}
-	
-	public Usuario getUsuarioSelecionado() {
-		System.out.println("GET selec");
-		return usuarioSelecionado;
-		
+		mostrarMensagem(mensagem);
 	}
 
-	public void setUsuarioSelecionado(Usuario usuarioSelecionado) throws IOException, ServletException {
-		this.usuarioSelecionado = usuarioSelecionado;
-		System.out.println(usuarioSelecionado);
-		usuario = usuarioSelecionado;
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("USUARIO", usuarioSelecionado);
+	public Usuario getUsuarioSelecionado() {
+		return usuarioSelecionado;
+
 	}
+
+	public void setUsuarioSelecionado(Usuario usuarioSelecionado)
+			throws IOException, ServletException {
+		this.usuarioSelecionado = usuarioSelecionado;
+		usuario = usuarioSelecionado;
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.put("USUARIO", usuarioSelecionado);
+	}
+
 }
