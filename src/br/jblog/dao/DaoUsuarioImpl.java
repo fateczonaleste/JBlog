@@ -21,11 +21,11 @@ public class DaoUsuarioImpl implements DaoUsuario {
 			PreparedStatement stm = ConnectionFactory.getConnection()
 					.prepareStatement(sql);
 
-			stm.setDouble(0, u.getId());
-			stm.setString(1, u.getNome());
-			stm.setString(2, u.getLogin());
-			stm.setString(3, u.getSenha());
-			stm.setString(4, u.getBio());
+			stm.setDouble(1, u.getId());
+			stm.setString(2, u.getNome());
+			stm.setString(3, u.getLogin());
+			stm.setString(4, u.getSenha());
+			stm.setString(5, u.getBio());
 
 			return stm.executeUpdate();
 
@@ -61,10 +61,10 @@ public class DaoUsuarioImpl implements DaoUsuario {
 		try {
 			PreparedStatement stm = ConnectionFactory.getConnection()
 					.prepareStatement(sql);
-			stm.setString(0, u.getNome());
-			stm.setString(1, u.getLogin());
-			stm.setString(2, u.getSenha());
-			stm.setString(3, u.getBio());
+			stm.setString(1, u.getNome());
+			stm.setString(2, u.getLogin());
+			stm.setString(3, u.getSenha());
+			stm.setString(4, u.getBio());
 			return stm.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException("Erro ao incluir Usuario.\n"

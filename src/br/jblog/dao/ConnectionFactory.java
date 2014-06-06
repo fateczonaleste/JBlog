@@ -1,12 +1,7 @@
 package br.jblog.dao;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
 
 public class ConnectionFactory {
 	/*
@@ -39,14 +34,14 @@ public class ConnectionFactory {
 	
 	public static Connection getConnection() {
         try {
-            String url = "jdbc:postgresql://localhost:5432/JJblog";
-            String usuario = "postgres";
-            String senha = "Elias0804";
-            Class.forName("org.postgresql.Driver");
+            String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+            String usuario = "system";
+            String senha = "123456";
+            Class.forName("oracle.jdbc.driver.OracleDriver");
             return  DriverManager.getConnection(url, usuario, senha);
-        } catch (Exception e) { 
-            e.printStackTrace();
+        } catch (Exception e) {             
             System.out.println("Erro de conexao");
+            e.printStackTrace();
             return null;
         }
 	 }

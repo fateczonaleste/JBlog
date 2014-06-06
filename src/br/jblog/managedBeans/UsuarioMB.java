@@ -13,7 +13,6 @@ import javax.servlet.ServletException;
 import br.jblog.dao.DAOException;
 import br.jblog.dao.DaoUsuario;
 import br.jblog.dao.DaoUsuarioImpl;
-import br.jblog.model.Blog;
 import br.jblog.model.Usuario;
 
 @ManagedBean
@@ -101,7 +100,7 @@ public class UsuarioMB {
 		mostrarMensagem(mensagem);
 	}
 
-	public String consultarTodos() {
+	public void consultarTodos() {
 
 		String mensagem;
 		try {
@@ -109,13 +108,12 @@ public class UsuarioMB {
 			usuarios = cDao.listAll();
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("USUARIOS", usuarios);
 			System.out.println("1");
-			// mensagem = usuarios.size() + "Usuário(s) encontrado(s)";
+			mensagem = usuarios.size() + "Usuario(s) encontrado(s)";
 
 		} catch (DAOException e) {
 			mensagem = e.getMessage();
 		}
-		// mostrarMensagem(mensagem);
-		return "";
+		mostrarMensagem(mensagem);		
 	}
 	
 	public Usuario getUsuarioSelecionado() {
