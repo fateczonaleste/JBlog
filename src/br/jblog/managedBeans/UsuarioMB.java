@@ -1,5 +1,6 @@
 package br.jblog.managedBeans;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +25,14 @@ public class UsuarioMB {
 				new FacesMessage(mensagem));
 	}
 
-	public UsuarioMB() {
+	@SuppressWarnings("unchecked")
+	public UsuarioMB() throws IOException {
 		usuario = new Usuario();
-		usuarios = new ArrayList<Usuario>();
+		usuarios = (List<Usuario>) FacesContext.getCurrentInstance()
+				.getExternalContext().getSessionMap().get("USUARIOS");
+		if (usuarios == null) {
+			usuarios = new ArrayList<Usuario>();
+		}
 	}
 
 	public Usuario getUsuario() {
@@ -90,15 +96,20 @@ public class UsuarioMB {
 	}
 
 	public String consultarTodos() {
+
 		String mensagem;
 		try {
 			DaoUsuario cDao = new DaoUsuarioImpl();
 			usuarios = cDao.listAll();
-			mensagem = usuarios.size() + "Usuário(s) encontrado(s)";
+			FacesContext.getCurrentInstance().getExternalContext()
+					.getSessionMap().put("USUARIOS", usuarios);
+			System.out.println("1");
+			// mensagem = usuarios.size() + "Usuário(s) encontrado(s)";
+
 		} catch (DAOException e) {
 			mensagem = e.getMessage();
 		}
-		mostrarMensagem(mensagem);
+		// mostrarMensagem(mensagem);
 		return "";
 	}
 }

@@ -25,11 +25,12 @@
 				<p:commandButton value="Alterar" action="#{usuarioMB.alterar()}"></p:commandButton>
 				<p:commandButton value="Deletar" action="#{usuarioMB.deletar()}"></p:commandButton>
 				<p:commandButton value="Buscar" action="#{usuarioMB.selecionar()}"></p:commandButton>
+				<p:commandButton value="Listar" action="#{usuarioMB.consultarTodos()}"></p:commandButton>
 			</h:panelGroup>
 			<p></p>
 			<h:panelGroup>
-				<p:dataTable value="#{usuarioMB.usuarios}" var="usuario" rows="10" emptyMessage="Insira um nome e busque os usuários"
-					paginator="true">
+				<p:dataTable value="#{usuarioMB.usuarios}" var="usuario" rows="10" 
+				 emptyMessage="Clique em busca para ver todos usuários" paginator="true">
 					<p:column sortBy="#{usuario.id}" headerText="Id">
 						<h:outputText value="#{usuario.id}" />
 					</p:column>
