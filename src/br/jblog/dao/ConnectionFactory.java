@@ -35,8 +35,8 @@ public class ConnectionFactory {
 		return con;
 	}
 	
-	
 	/*
+	
 	public static Connection getConnection() {
         try {
             String url = "jdbc:postgresql://localhost:5432/JJblog";
@@ -50,7 +50,7 @@ public class ConnectionFactory {
             return null;
         }
 	 }
-	 */
-
+	 
+	*/
 
 }

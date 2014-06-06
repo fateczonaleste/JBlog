@@ -26,17 +26,24 @@
 		</p:menuitem>
 	</p:tabMenu>
 	<h2>Veja o Jblog</h2>
-	<p:dataTable var="blo" value="#{blogMB.consultarTodos()}">
-		<p:column headerText="Titulo">
-			<p:commandLink value="#{blo.titulo}" action="#{blogMB.blogSession()}">
-			</p:commandLink>
-		</p:column>
-		<p:column headerText="Descrição">
-			<p:commandLink value="#{blo.descricao}"
-				action="#{blogMB.blogSession()}">
-			</p:commandLink>
-		</p:column>
-	</p:dataTable>
+	<h:form>
+		<p:dataTable var="blo" value="#{blogMB.consultarTodos()}"
+			emptyMessage="Não há Blogs no Momento" rowKey="#{blo.id}"
+			scrollable="true" scrollHeight="800">
+			<p:column headerText="Titulo" width="250">
+				<p:commandLink value="#{blo.titulo}" update="@form">
+					<f:setPropertyActionListener target="#{blogMB.blogSelecionado}"
+						value="#{blo}" />
+				</p:commandLink>
+			</p:column>
+			<p:column headerText="Descrição">
+				<p:commandLink value="#{blo.descricao}" update="@form" >
+					<f:setPropertyActionListener target="#{blogMB.blogSelecionado}"
+						value="#{blo}" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+	</h:form>
 
 </h:body>
 
