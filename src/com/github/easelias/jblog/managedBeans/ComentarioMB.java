@@ -3,11 +3,14 @@ package com.github.easelias.jblog.managedBeans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
-import com.github.easelias.jblog.dao.DaoComentario;
-import com.github.easelias.jblog.dao.DaoComentarioImpl;
+import com.github.easelias.jblog.dao.DAOComentario;
+import com.github.easelias.jblog.dao.DAOComentarioImpl;
+import com.github.easelias.jblog.dao.DAOException;
 import com.github.easelias.jblog.model.Comentario;
 
 @ManagedBean
@@ -15,48 +18,60 @@ import com.github.easelias.jblog.model.Comentario;
 public class ComentarioMB {
 	private Comentario comentario;
 	private List<Comentario> comentarios;
-	
-	
+
 	public ComentarioMB() {
 		comentario = new Comentario();
 		comentarios = new ArrayList<Comentario>();
 	}
-	
-	public Comentario getComentario(){
+
+	public Comentario getComentario() {
 		return comentario;
 	}
 
-	public List<Comentario> getComentarios(){
+	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
-	
-	public String adicionar(){
-		DaoComentario dao = new DaoComentarioImpl();
-		dao.add(comentario, 1);
-		return "";
+
+	private void mostrarMensagem(String mensagem) {
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(mensagem));
 	}
-	
-	public String deletar (){
-		DaoComentario dao = new DaoComentarioImpl();
-		dao.delete(comentario);
-		return ""; 
+
+	public void deletar() {
+		try {
+			DAOComentario dao = new DAOComentarioImpl();
+			dao.delete(comentario);
+			mostrarMensagem("Comentário removido com sucesso.");
+		} catch (DAOException e) {
+			mostrarMensagem(e.getMessage());
+		}
 	}
-	
-	public String alterar(){
-		DaoComentario dao = new DaoComentarioImpl();
-		dao.update(comentario);
-		return "";
+
+	public void alterar() {
+		try {
+			DAOComentario dao = new DAOComentarioImpl();
+			dao.update(comentario);
+		} catch (DAOException e) {
+			mostrarMensagem(e.getMessage());
+		}
 	}
-	
-	public String selecionar(){
-		DaoComentario dao = new DaoComentarioImpl();
-		comentario = dao.getById(comentario.getId());
-		return "";
+
+	public void selecionar() {
+		try {
+			DAOComentario dao = new DAOComentarioImpl();
+			comentario = dao.getById(comentario.getId());
+		} catch (DAOException e) {
+			mostrarMensagem(e.getMessage());
+		}
 	}
-	
-	public List<Comentario> consultarTodos(){
-		DaoComentario cDao = new DaoComentarioImpl();
-		comentarios = cDao.listAll();
+
+	public List<Comentario> consultarTodos() {
+		try {
+			DAOComentario cDao = new DAOComentarioImpl();
+			comentarios = cDao.listAll();
+		} catch (DAOException e) {
+			mostrarMensagem(e.getMessage());
+		}
 		return comentarios;
 	}
 }

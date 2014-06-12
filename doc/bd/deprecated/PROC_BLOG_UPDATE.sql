@@ -1,0 +1,14 @@
+CREATE OR REPLACE PROCEDURE PROC_BLOG_UPDATE (
+  p_id    IN BLOG.ID_BLOG%TYPE,
+  p_titulo IN BLOG.TITULO_BLOG%TYPE, 
+  p_descricao IN BLOG.DESCRICAO_BLOG%TYPE 
+) 
+  IS
+  BEGIN
+    UPDATE BLOG 
+    SET ID_BLOG=p_id,
+        TITULO_BLOG=p_titulo,
+        DESCRICAO_BLOG=p_descricao 
+        WHERE (BLOG.ID_BLOG = p_id);
+    COMMIT;    
+  END PROC_BLOG_UPDATE;

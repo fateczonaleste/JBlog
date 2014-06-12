@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>JBlog - Login</title>
+</h:head>
+<h:body>
+	<p:panel header="Login - JBlog"   footer="JBlog - O seu Blog">
+		<h:form id="frmlogin" >
+			<p:outputLabel for="login" value="Login:" />
+			<p:inputText id="login" value="#{loginMB.usuario.login}" required="true" requiredMessage="Campos Obrigatório"/>
+			<p></p>
+			<p:outputLabel for="senha" value="Senha:" />
+			<p:password id="senha" value="#{loginMB.usuario.senha}" required="true" requiredMessage="Campos Obrigatório"/>
+			<p></p>
+			<p:commandButton value="Logar" actionListener="#{loginMB.logar()}" ajax="true"></p:commandButton>
+		</h:form>
+	</p:panel>
+
+</h:body>
+</html>

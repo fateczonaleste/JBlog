@@ -6,30 +6,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.NaturalId;
-
 @Entity
 public class Usuario {
 
 	@Id
 	@GeneratedValue
-	@Column
 	private Long id;
 
-	@Basic(optional = false)
-	@Column
+	@Column(length = 100)
 	private String nome;
 
-	@NaturalId
-	@Basic(optional = false)
-	@Column
+	@Column(length = 20)
 	private String login;
-	@Basic(optional = false)
-	@Column
+
+	@Column(length = 32)
 	private String senha;
 
-	@Basic(optional = true)
-	@Column
+	@Column(length = 180)
+	@Basic (optional=true)
 	private String descricao;
 
 	public Long getId() {
@@ -70,6 +64,14 @@ public class Usuario {
 
 	public void setDescricao(String bio) {
 		this.descricao = bio;
+	}
+	
+	public boolean equals(Usuario u) {
+		boolean isEqual = false;
+		if (this.getId() == u.getId()) {
+			isEqual = true;
+		}
+		return isEqual;
 	}
 
 }

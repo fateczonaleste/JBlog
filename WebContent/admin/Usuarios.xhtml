@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="index.xhtml">
+	<ui:define name="title">Administração/Usuários</ui:define>
+	<ui:define name="content">
+		<p:panel header="Cadastro de Usuário" footer="JBlog - O seu Blog">
+			<h:form id="cadastro">
+				<h:messages id="mensagens" />
+				<h:panelGrid columns="2">
+					<p:outputLabel for="codigo" value="Código:" />
+					<p:outputLabel id="codigo" value="#{usuarioMB.usuario.id}"></p:outputLabel>
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" />
+					<p:outputLabel for="login" value="Login:" />
+					<p:inputText id="login" value="#{usuarioMB.usuario.login}" />
+					<p:outputLabel for="senha" value="Senha:" />
+					<p:password id="senha" value="#{usuarioMB.usuario.senha}" />
+					<p:outputLabel for="bio" value="Bio (um pouco de você): " />
+					<p:inputTextarea id="bio" value="#{usuarioMB.usuario.descricao}"
+						scrollHeight="700" rows="6" />
+					<p:commandButton value="Adicionar"
+						action="#{usuarioMB.adicionar()}" update=":listagem"></p:commandButton>
+					<p:commandButton value="Alterar" action="#{usuarioMB.alterar()}"
+						update=":listagem"></p:commandButton>
+					<p:commandButton value="Deletar" action="#{usuarioMB.deletar()}"
+						update=":listagem"></p:commandButton>
+					<p:commandButton value="Buscar" action="#{usuarioMB.selecionar()}"
+						update=":listagem"></p:commandButton>
+				</h:panelGrid>
+			</h:form>
+			<h:form id="listagem">
+				<h:panelGroup>
+					<p:dataTable value="#{usuarioMB.usuarios}" var="usua" rows="10"
+						emptyMessage="Clique em busca para ver todos usuários"
+						paginator="true" editable="true">
+						<p:column sortBy="#{usua.id}" headerText="Id">
+							<p:commandLink value="#{usua.id}" update=":cadastro">
+								<f:setPropertyActionListener target="#{usuarioMB.usuario}"
+									value="#{usua}" />
+							</p:commandLink>
+						</p:column>
+						<p:column sortBy="#{usua.nome}" headerText="Nome">
+							<p:commandLink value="#{usua.nome}" update=":cadastro">
+								<f:setPropertyActionListener target="#{usuarioMB.usuario}"
+									value="#{usua}" />
+							</p:commandLink>
+						</p:column>
+						<p:column sortBy="#{usua.login}" headerText="Login">
+							<p:commandLink value="#{usua.login}" update=":cadastro">
+								<f:setPropertyActionListener target="#{usuarioMB.usuario}"
+									value="#{usua}" />
+							</p:commandLink>
+						</p:column>
+						<p:column headerText="Descrição">
+							<p:commandLink value="#{usua.descricao}" update=":cadastro">
+								<f:setPropertyActionListener target="#{usuarioMB.usuario}"
+									value="#{usua}" />
+							</p:commandLink>
+						</p:column>
+					</p:dataTable>
+				</h:panelGroup>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

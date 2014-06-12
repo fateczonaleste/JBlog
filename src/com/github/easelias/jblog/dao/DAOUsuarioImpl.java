@@ -6,18 +6,20 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.github.easelias.jblog.model.Usuario;
 
 public class DAOUsuarioImpl implements DAOUsuario {
 
+	private final String _TABELA = "usuario";
+
 	@Override
-	public Long update(Usuario u) throws DAOException {
+	public long update(Usuario u) throws DAOException {
 
 		try {
 			EntityManagerFactory factory = Persistence
-					.createEntityManagerFactory("usuario");
+					.createEntityManagerFactory(_TABELA);
 			EntityManager manager = factory.createEntityManager();
 
 			manager.getTransaction().begin();
@@ -37,11 +39,11 @@ public class DAOUsuarioImpl implements DAOUsuario {
 	}
 
 	@Override
-	public Long delete(Usuario u) throws DAOException {
+	public long delete(Usuario u) throws DAOException {
 
 		try {
 			EntityManagerFactory factory = Persistence
-					.createEntityManagerFactory("usuario");
+					.createEntityManagerFactory(_TABELA);
 			EntityManager manager = factory.createEntityManager();
 
 			manager.getTransaction().begin();
@@ -60,11 +62,11 @@ public class DAOUsuarioImpl implements DAOUsuario {
 	}
 
 	@Override
-	public Long add(Usuario u) throws DAOException {
+	public long add(Usuario u) throws DAOException {
 
 		try {
 			EntityManagerFactory factory = Persistence
-					.createEntityManagerFactory("usuario");
+					.createEntityManagerFactory(_TABELA);
 			EntityManager manager = factory.createEntityManager();
 
 			manager.getTransaction().begin();
@@ -83,12 +85,12 @@ public class DAOUsuarioImpl implements DAOUsuario {
 	}
 
 	@Override
-	public Usuario getById(double id) throws DAOException {
+	public Usuario getById(long id) throws DAOException {
 
 		try {
 			Usuario usuario;
 			EntityManagerFactory factory = Persistence
-					.createEntityManagerFactory("usuario");
+					.createEntityManagerFactory(_TABELA);
 			EntityManager manager = factory.createEntityManager();
 
 			usuario = manager.find(Usuario.class, id);
@@ -110,12 +112,13 @@ public class DAOUsuarioImpl implements DAOUsuario {
 		try {
 			List<Usuario> lista = new ArrayList<Usuario>();
 			EntityManagerFactory factory = Persistence
-					.createEntityManagerFactory("usuario");
+					.createEntityManagerFactory(_TABELA);
 			EntityManager manager = factory.createEntityManager();
 
-			Query query = manager
-					.createQuery("select u from Usuario where u.nome LIKE :nome");
-			query.setParameter("nome", "%"+nome+"%");
+			TypedQuery<Usuario> query = manager.createQuery(
+					"SELECT u FROM Usuario WHERE u.nome LIKE :nome",
+					Usuario.class);
+			query.setParameter("nome", "%" + nome + "%");
 			lista = query.getResultList();
 
 			manager.close();
@@ -133,11 +136,12 @@ public class DAOUsuarioImpl implements DAOUsuario {
 
 		try {
 			EntityManagerFactory factory = Persistence
-					.createEntityManagerFactory("usuario");
+					.createEntityManagerFactory(_TABELA);
 			EntityManager manager = factory.createEntityManager();
 
 			List<Usuario> lista = manager.createQuery(
-					"select u from Usuario order by u.nome").getResultList();
+					"SELECT u FROM Usuario ORDER BY u.nome", Usuario.class)
+					.getResultList();
 
 			manager.close();
 			factory.close();

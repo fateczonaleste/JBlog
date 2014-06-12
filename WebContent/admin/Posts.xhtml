@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Jblog</title>
+</h:head>
+<h:body>
+	<h1>JBlog-O seu Blog</h1>
+	<p:panel footer="JBlog - O seu Blog">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<h:form>
+			<h2>Insira um novo Post</h2>
+			<p:panel header="Blogs" footer="Total">
+				<h2>Titulo Post:</h2>
+				<p:inputText value="#{postMB.post.titulo}" />
+				<h2>"Conteudo Post:</h2>
+				<p:editor value="#{postMB.post.conteudo}" />
+				<p:commandButton value="Adicionar" action="#{postMB.adicionar()}"
+					id="withIcon" icon="ui-icon-plus" />
+				<p:commandButton value="Alterar" action="#{postMB.alterar()}" />
+				<p:commandButton value="Deletar" action="#{postMB.deletar()}" />
+				<p:commandButton value="Buscar" action="#{postMB.selecionar()}" />
+				<p:commandButton value="Buscar Todos" />
+			</p:panel>
+		</h:form>
+	</p:panel>
+</h:body>
+
+</html>

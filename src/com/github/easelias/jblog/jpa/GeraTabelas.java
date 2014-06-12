@@ -7,7 +7,9 @@ public class GeraTabelas {
 
 	public static void main(String[] args) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("usuario");
-		factory = Persistence.createEntityManagerFactory("blog");			
+		factory = Persistence.createEntityManagerFactory("blog");
+		factory = Persistence.createEntityManagerFactory("post");
+		factory = Persistence.createEntityManagerFactory("comentario");	
 		factory.close();
 	}
 	

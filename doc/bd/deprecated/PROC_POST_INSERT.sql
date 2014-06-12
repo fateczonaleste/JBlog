@@ -1,0 +1,12 @@
+CREATE OR REPLACE PROCEDURE PROC_POST_INSERT (    
+  p_titulo        IN  POST.TITULO_POST%TYPE,
+  p_datacriacao   IN  POST.DATACRIACAO_POST%TYPE,
+  p_conteudo      IN  POST.CONTEUDO_POST%TYPE,
+  p_usuario_id    IN  POST.ID_USUARIO%TYPE
+) 
+  IS
+  BEGIN
+    INSERT INTO POST (ID_POST, TITULO_POST, DATACRIACAO_POST, CONTEUDO_POST, ID_USUARIO) 
+        VALUES  (SQUSUARIO.nextVal, p_titulo, p_datacriacao, p_conteudo, p_usuario_id);
+    COMMIT;    
+  END PROC_POST_INSERT;

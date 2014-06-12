@@ -38,8 +38,7 @@ public class DAOBlogImpl implements DAOBlog {
 					.createEntityManagerFactory("blog");
 			EntityManager manager = factory.createEntityManager();
 
-			List<Blog> blogs = manager.createQuery("select b from Blog")
-					.getResultList();
+			List<Blog> blogs = manager.createQuery("select b from Blog", Blog.class).getResultList();
 
 			if (blogs.size() > 0) {
 				b = blogs.get(0);

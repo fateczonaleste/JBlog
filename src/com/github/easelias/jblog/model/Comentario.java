@@ -2,9 +2,11 @@ package com.github.easelias.jblog.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -13,14 +15,34 @@ public class Comentario {
 
 	@Id
 	@GeneratedValue
-	private double id;
-	
+	private long id;
+
 	@Temporal(TemporalType.DATE)
 	private Date dataCriacao;
-	
+
+	@Column(length = 100)
 	private String nome;
+
+	@Column(length = 180)
 	private String conteudo;
+
+	@Column(length = 100)
 	private String email;
+
+	@ManyToOne
+	private Post post;
+	
+	public Comentario() {
+		this.setPost(new Post());
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
 
 	public String getNome() {
 		return nome;
@@ -38,11 +60,11 @@ public class Comentario {
 		this.email = email;
 	}
 
-	public double getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -60,6 +82,14 @@ public class Comentario {
 
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
+	}
+
+	public boolean equals(Comentario c) {
+		boolean isEqual = false;
+		if (this.getId() == c.getId()) {
+			isEqual = true;
+		}
+		return isEqual;
 	}
 
 }
