@@ -5,13 +5,17 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>JBlog - <ui:insert name="title"></ui:insert>
-	</title>
+	<!-- <link rel="stylesheet" href="../css/bootstrap.min.css" />-->
+	<title>JBlog - <ui:insert name="title"></ui:insert></title>	
 </h:head>
 <h:body>
 	<ui:insert name="header">
 		<ui:include src="header.xhtml" />
 	</ui:insert>
+	<p:breadCrumb>
+		<p:menuitem value="Administração" url="#" />
+		<ui:insert name="breadcumb" />
+	</p:breadCrumb>
 	<ui:insert name="content">
 		<div>Painel Administrativo.</div>
 	</ui:insert>
